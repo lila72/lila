@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Лила</title>
+<meta charset="utf-8">
+
+<style>
+body {
+	background-image: url('./bgb.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-size: 100% 100%;
+}
+	
+#sun-icon {
+	position: absolute;
+	bottom: 60px;
+	left: 60px;
+	cursor: pointer;
+}
+#moon-icon {
+	position: absolute;
+	bottom: 160px;
+	left: 60px;
+	cursor: pointer;
+}
+input {
+	font-size: 1.6em;
+}
+p#cub {
+	color: #fff;
+	font-size: 1.6em;
+	height: 20px;
+}
+#player {
+	background-color: #dfcbef;
+	color: #8b00ff;
+	font-size: 1.6em;
+	border: 1px solid #8b00ff;
+	outline: none;
+	-moz-appearance: none;
+	height: 200px;
+	width: 300px;
+}
+textarea {
+	background-color: #dfcbef;
+	color: #8b00ff;
+	font-size: 1.6em;
+	border: 1px solid #8b00ff;
+	outline: none;
+	-moz-appearance: none;
+	height: 150px;
+	width: 300px;
+}
+#cubbtn {
+	height: 50px;
+	width: 300px;
+	cursor: pointer;
+	border: 1px solid #8b00ff;
+	background-color: #dfcbef;
+	color: #8b00ff;
+	font-size: 1.6em;
+}
+.p1 {
+	background-color: #dfcbef;
+	color: #8b00ff;
+	font-size: 1.6em;
+	border: 1px solid #8b00ff;
+	outline: none;
+	-moz-appearance: none;
+	height: 50px;
+	width: 300px;
+}
+</style>
+</head>
+<body>
+<p><input type="button" id="cubbtn" value="БРОСИТЬ КУБИК" onclick="randomInteger(1,6)"></p>
+<p id="cub"></p>
+<p>
+<input type="text" class="p1" size="40" placeholder="Имя первого игрока">
+</p>
+<p>
+<textarea rows="10" cols="18" name="text" class="player" id="message" placeholder="Сделанные ходы"></textarea>
+</p>
+<p>
+<input type="text" class="p1" size="40" placeholder="Имя второго игрока">
+</p>
+<p>
+<textarea rows="10" cols="18" name="text" class="player" placeholder="Сделанные ходы"></textarea>
+</p>
+<img id="sun-icon" src="./sun-icon.png" alt="Игрок 1">
+<img id="moon-icon" src="./moon-icon.png" alt="Игрок 2">
+</body>
+<script>
+var img = document.getElementById('sun-icon');
+img.ondragstart = () => false;
+let rect = img.getBoundingClientRect();
+let css = getComputedStyle(img);
+
+img.onmousedown = e => {
+  img.style.position = 'absolute';
+  let saveX = e.offsetX;
+  let saveY = e.offsetY; 
+
+  document.onmousemove = e => {
+      img.style.position = 'absolute';
+      img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
+      img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
+    }
+  }
+
+  img.onmouseup = e => {
+    document.onmousemove = () => false;
+}
+
+
+var img2 = document.getElementById('moon-icon');
+img2.ondragstart = () => false;
+let rect2 = img2.getBoundingClientRect();
+let css2 = getComputedStyle(img2);
+
+img2.onmousedown = e => {
+  img2.style.position = 'absolute';
+  let saveX2 = e.offsetX;
+  let saveY2 = e.offsetY; 
+
+  document.onmousemove = e => {
+      img2.style.position = 'absolute';
+      img2.style.top = e.pageY-parseInt(css2.margin)-saveY2+'px';
+      img2.style.left = e.pageX-parseInt(css2.margin)-saveX2+'px';
+    }
+  }
+
+  img2.onmouseup = e => {
+    document.onmousemove = () => false;
+}
+
+function randomInteger(min, max) {
+	document.getElementById("cub").innerHTML = 'Вычисляем...';
+	setTimeout(function(){
+		let num = Math.floor(Math.random() * (max - min + 1)) + min;
+		document.getElementById("cub").innerHTML = 'Выпало число... ' + num;
+	}, 1000);
+}
+</script>
+</html>
+
+
+
+
